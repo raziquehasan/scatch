@@ -2,41 +2,87 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Scatch | Shop</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scatch | Shop</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="font-sans bg-gray-100 text-gray-800">
 
-    <!-- Navbar -->
-    <nav class="w-full bg-white shadow-md px-6 py-4 flex items-center justify-between fixed top-0 left-0 z-50">
-        <!-- Logo -->
-        <div class="text-2xl font-bold text-blue-500">
-            <a href="/">Scatch</a>
-        </div>
+  <!-- Navbar -->
+  <nav class="w-full bg-white shadow-lg border-b border-gray-100 px-6 md:px-12 py-4 flex items-center justify-between fixed top-0 left-0 z-50 transition-all duration-300">
+    <!-- Logo -->
+    <div class="text-2xl font-extrabold tracking-wide text-blue-500 hover:text-blue-600 transition-colors">
+      <a href="/">Scatch</a>
+    </div>
 
-        <!-- Navigation Links -->
-        <div class="space-x-6 hidden md:flex">
-            <a href="/" class="text-gray-700 hover:text-blue-500">Home</a>
-            <a href="/shop" class="text-gray-700 hover:text-blue-500">Shop</a>
-            <a href="#" class="text-gray-700 hover:text-blue-500">About</a>
-            <a href="#" class="text-gray-700 hover:text-blue-500">Contact</a>
-        </div>
+    <!-- Desktop Navigation Links -->
+    <div id="nav-links" class="hidden md:flex space-x-8 text-sm font-medium">
+      <a href="/" class="relative group">
+        <span class="text-gray-700 group-hover:text-blue-500 transition-colors">Home</span>
+        <span
+          class="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+      </a>
+      <a href="/shop" class="relative group">
+        <span class="text-gray-700 group-hover:text-blue-500 transition-colors">Shop</span>
+        <span
+          class="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+      </a>
+      <a href="#" class="relative group">
+        <span class="text-gray-700 group-hover:text-blue-500 transition-colors">About</span>
+        <span
+          class="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+      </a>
+      <a href="#" class="relative group">
+        <span class="text-gray-700 group-hover:text-blue-500 transition-colors">Contact</span>
+        <span
+          class="absolute left-0 -bottom-1 w-0 h-[2px] bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+      </a>
+    </div>
 
-        <!-- User / Cart Icons -->
-        <div class="flex items-center gap-4">
-            <a href="#" title="Cart" class="relative">
-                <i class="ri-shopping-cart-2-line text-xl hover:text-blue-500"></i>
-                <!-- <span class="absolute -top-2 -right-2 text-xs bg-red-500 text-white rounded-full px-1">2</span> -->
-            </a>
-            <a href="/users/logout" title="Logout">
-                <i class="ri-logout-box-r-line text-xl hover:text-red-500"></i>
-            </a>
-        </div>
+    <!-- User / Cart Icons -->
+    <div class="flex items-center gap-5">
+      <a href="#" title="Cart" class="relative group">
+        <i class="ri-shopping-cart-2-line text-2xl text-gray-700 group-hover:text-blue-500 transition-colors"></i>
+        <!-- <span class="absolute -top-2 -right-2 text-xs bg-red-500 text-white rounded-full px-1">2</span> -->
+      </a>
+      <a href="/users/logout" title="Logout" class="group">
+        <i class="ri-logout-box-r-line text-2xl text-gray-700 group-hover:text-red-500 transition-colors"></i>
+      </a>
+      <!-- Hamburger Icon -->
+      <button id="hamburger" aria-label="Toggle menu" class="md:hidden focus:outline-none">
+        <i class="ri-menu-line text-3xl text-gray-700 hover:text-blue-500 transition-colors"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden fixed top-[64px] left-0 w-full bg-white shadow-lg border-t border-gray-100 z-40 md:hidden">
+    <nav class="flex flex-col space-y-4 px-6 py-4 text-center">
+      <a href="/" class="text-gray-700 hover:text-blue-500 text-lg font-semibold">Home</a>
+      <a href="/shop" class="text-gray-700 hover:text-blue-500 text-lg font-semibold">Shop</a>
+      <a href="#" class="text-gray-700 hover:text-blue-500 text-lg font-semibold">About</a>
+      <a href="#" class="text-gray-700 hover:text-blue-500 text-lg font-semibold">Contact</a>
     </nav>
+  </div>
 
-    <!-- Page Content Wrapper (push content below fixed navbar) -->
-    <div class="pt-20">
+  <!-- Push page content below navbar -->
+  <div class="pt-20">
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Optional: Close mobile menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+  </script>

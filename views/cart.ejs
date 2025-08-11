@@ -1,46 +1,165 @@
-<%- include('./partials/header') %>
-    <div class="w-full h-screen flex items-start px-20 py-20 gap-10">
-        <div class="w-[30%] rounded-md overflow-hidden">
-            <div class="w-full h-80 bg-yellow-500"></div>
-            <div class="w-full flex justify-between px-5 py-4">
-                <h3 class="text-2xl">Clinge Bag</h3>
-                <div class="flex items-center gap-2">
-                    <i class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-add-line"></i>
-                    <div class="px-2 py-1 rounded-md bg-white text-black">01</div>
-                    <i class="w-7 h-7 bg-white flex rounded-full items-center justify-center ri-subtract-line"></i>
-                </div>
-            </div>
-            <div class="flex items-center justify-between px-5 py-3">
-                <h4 class="text-lg">Net Total</h4>
-                <h2 class="text-lg">₹ 1200</h2>
-            </div>
-        </div>
-        <div class="w-[70%]">
-            <h3 class="text-xl">Price Breakdown</h3>
-            <div class="px-10 mt-5">
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Total MRP</h4>
-                    <h4>₹ 1920</h4>
-                </div>
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Discount on MRP</h4>
-                    <h4>₹ 0</h4>
-                </div>
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Platform Fee</h4>
-                    <h4>₹ 20</h4>
-                </div>
-                <div class="flex mt-2">
-                    <h4 class="w-1/3">Shipping Fee</h4>
-                    <h4>FREE</h4>
-                </div>
-            </div>
-            <div class="w-full h-[1px] bg-black mt-10"></div>
-            <div class="flex mt-5">
-                <h3 class="w-1/3 text-xl">Total Amount</h3>
-                <h3 class="font-semibold text-xl text-green-600">₹ 1940</h3>
-            </div>
-            <form action=""></form>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Cart</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main.container {
+      flex: 1;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+    .cart-item {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .cart-item img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: #f0f0f0;
+      padding: 10px;
+    }
+    .cart-details {
+      flex-grow: 1;
+    }
+    .cart-details h5 {
+      font-weight: 600;
+      color: #333;
+    }
+    .price {
+      font-weight: 700;
+      color: #28a745;
+      font-size: 1.1rem;
+      margin-top: 8px;
+    }
+    .quantity {
+      font-size: 1rem;
+      margin-top: 5px;
+    }
+    .subtotal {
+      font-weight: 600;
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+    .btn-remove {
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    .price-summary {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      padding: 20px;
+      max-width: 400px;
+      margin-left: auto;
+    }
+    .price-summary h4 {
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #222;
+    }
+    .price-summary li {
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+    }
+    .total-amount {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-top: 15px;
+      border-top: 1px solid #ddd;
+      padding-top: 15px;
+    }
+    footer.footer {
+      background: #fff;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      border-top: 1px solid #ddd;
+    }
+    nav.navbar {
+      font-size: 1.2rem;
+      font-weight: 500;
+      background-color: #343a40;
+      color: #fff;
+    }
+    nav.navbar span {
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark px-4">
+  <span class="navbar-brand mb-0 h1">Your Cart, <%= user %> 🛒</span>
+</nav>
+
+<main class="container">
+  <% if (cartItems.length === 0) { %>
+    <div class="alert alert-info text-center">
+      Your cart is empty. <a href="/shop" class="alert-link">Go shopping now!</a>
     </div>
-    <%- include('./partials/footer') %>
+  <% } else { %>
+    <div class="row">
+      <div class="col-lg-8">
+        <% cartItems.forEach(item => { %>
+          <div class="cart-item">
+            <img src="/designs/<%= item.image %>" alt="<%= item.name %>" />
+            <div class="cart-details">
+              <h5><%= item.name %></h5>
+              <div class="price">Price: ₹<%= item.price %></div>
+              <div class="quantity">Quantity: <%= item.quantity %></div>
+              <div class="subtotal">Subtotal: ₹<%= item.price * item.quantity %></div>
+              <form action="/cart/remove" method="POST" class="mt-2">
+                <input type="hidden" name="name" value="<%= item.name %>" />
+                <button type="submit" class="btn btn-outline-danger btn-remove btn-sm">Remove</button>
+              </form>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="price-summary">
+          <h4>Price Breakdown</h4>
+          <ul class="list-unstyled">
+            <li>Total MRP <strong>₹ <%= totalMRP %></strong></li>
+            <li>Discount - ₹ <%= discount %></li>
+            <li>Platform Fee ₹ <%= platformFee %></li>
+            <li>Shipping Fee <strong><%= shippingFee === 0 ? 'FREE' : '₹ ' + shippingFee %></strong></li>
+          </ul>
+          <div class="total-amount">
+            Total Amount ₹ <%= totalAmount %>
+          </div>
+          <a href="/checkout" class="btn btn-primary mt-3 w-100">
+            Proceed to Checkout 💳
+          </a>
+        </div>
+      </div>
+    </div>
+  <% } %>
+</main>
+
+<footer class="footer">
+  © 2025 Scatch. All rights reserved.
+</footer>
+
+</body>
+</html>
