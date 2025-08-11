@@ -1,13 +1,13 @@
 {
   "name": "scatch",
   "version": "1.0.0",
-  "description": "",
+  "description": "An e-commerce web app using MongoDB, EJS, Express, and Node.js",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["e-commerce", "nodejs", "express", "mongodb", "ejs"],
+  "author": "Your Name",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
